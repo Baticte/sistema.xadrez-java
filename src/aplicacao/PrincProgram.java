@@ -1,10 +1,13 @@
 package aplicacao;
 
+import tabuleiroJogo.Posicao;
+
 public class PrincProgram {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Hello world!");
+		
+		Posicao pos = new Posicao(8, 8);
+		System.out.println(pos);
 	}
 
 }
