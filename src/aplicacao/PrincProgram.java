@@ -1,13 +1,12 @@
 package aplicacao;
 
-import tabuleiroJogo.Posicao;
+import tabuleiroJogo.Tabuleiro;
 
 public class PrincProgram {
 
 	public static void main(String[] args) {
 		
-		Posicao pos = new Posicao(8, 8);
-		System.out.println(pos);
+		Tabuleiro tabuleiro = new Tabuleiro(8, 8);
 	}
 
 }
