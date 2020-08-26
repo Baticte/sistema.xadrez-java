@@ -1,12 +1,14 @@
 package aplicacao;
 
-import tabuleiroJogo.Tabuleiro;
+import xadrez.PartidaXadrez;
 
 public class PrincProgram {
 
 	public static void main(String[] args) {
-		
-		Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+
+		PartidaXadrez partXadres = new PartidaXadrez();
+		//vamos criar uma funcao que vais imprimir 
+		UI.printTabuleiro(partXadres.getPecas());
 	}
 
 }
