@@ -22,14 +22,24 @@ public class PartidaXadrez {
 		}
 		return matriz;
 	}
-	
+
 	private void lugarNovaPeca(char coluna, int linha, PecaXadrez peca) {
 		tabuleiro.lugarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
 	}
-	
+
 	private void configInicial() {
-		lugarNovaPeca('a', 1, new Torre(tabuleiro, Cor.WHITE));
-		lugarNovaPeca('h', 1, new Torre(tabuleiro, Cor.WHITE));
-		lugarNovaPeca('e', 1, new Rei(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('c', 1, new Torre(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('c', 2, new Torre(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('d', 2, new Torre(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('e', 2, new Torre(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('e', 1, new Torre(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('d', 1, new Rei(tabuleiro, Cor.WHITE));
+
+		lugarNovaPeca('c', 7, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('c', 8, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('d', 7, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('e', 7, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('e', 8, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('d', 8, new Torre(tabuleiro, Cor.BLACK));
 	}
 }
