@@ -1,14 +1,17 @@
 package aplicacao;
 
-import tabuleiroJogo.Peca;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import xadrez.Cor;
 import xadrez.PecaXadrez;
+import xadrez.PosicaoXadrez;
 
 public class UI {
 
 	// link de onde o codigo foi pego, com o objetivo de usar o terminal de Git Bash porque e colorido
 	// https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
-	
+
 	//Codigos de cores das letras
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLACK = "\u001B[30m";
@@ -31,6 +34,17 @@ public class UI {
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
 
+	public static PosicaoXadrez lerPosicaoPeca(Scanner input) {
+		try {
+			String s = input.nextLine();
+			char coluna = s.charAt(0);
+			int linha = Integer.parseInt(s.substring(1));
+			return new PosicaoXadrez(coluna, linha);
+		} catch (RuntimeException e) {
+			throw new InputMismatchException("Erro lendo a posição de xadrez, valores válidos são de a1 à h8");
+		}
+	}
+
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
 		for(int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -43,17 +57,17 @@ public class UI {
 	}
 
 	private static void printPeca(PecaXadrez piece) {
-    	if (piece == null) {
-            System.out.print("-");
-        }
-        else {
-            if (piece.getCor() == Cor.WHITE) {
-                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-            }
-            else {
-                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
-            }
-        }
-        System.out.print(" ");
+		if (piece == null) {
+			System.out.print("-");
+		}
+		else {
+			if (piece.getCor() == Cor.WHITE) {
+				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+			}
+			else {
+				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+			}
+		}
+		System.out.print(" ");
 	}
 }
