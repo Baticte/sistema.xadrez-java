@@ -39,13 +39,13 @@ public class Tabuleiro {
 	
 	public void lugarPeca(Peca peca, Posicao pos) {
 		if(existeUmaPeca(pos)) {
-			throw new TabuleiroException("Já existe uma peça nesta posição!");
+			throw new TabuleiroException("Já existe uma peça na posição " + pos);
 		}
 		pecas[pos.getLinha()][pos.getColuna()] = peca;
 		peca.posicao = pos;
 	}
 	
-	public boolean posicaoExistente(int linha, int coluna) {
+	private boolean posicaoExistente(int linha, int coluna) {
 		/* condicao completa para ver se uma posica existe */
 		return linha >=0 && linha < linhas && coluna >= 0 && coluna < colunas;
 	}
