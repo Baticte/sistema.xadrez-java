@@ -35,8 +35,12 @@ public class UI {
 
 	// https://stackoverflow.com/questions/2979383/java-clear-the-console
 	public static void clearScreen() {  
-		System.out.print("\033[H\033[2J");  
-		System.out.flush();  
+		try {
+			//Thread.sleep(1000); // Espera 1 segundo para ver a mágica acontecer
+			new ProcessBuilder("clear").inheritIO().start().waitFor();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}	
 
 	public static PosicaoXadrez lerPosicaoPeca(Scanner input) {
@@ -54,25 +58,39 @@ public class UI {
 		for(int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");
 			for(int j = 0; j < pecas.length; j++) {
-				printPeca(pecas[i][j]);
+				printPeca(pecas[i][j], false);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	public static void printTabuleiro(PecaXadrez[][] pecas, boolean[][] possiveisMovimento) {
+		for(int i = 0; i < pecas.length; i++) {
+			System.out.print((8 - i) + " ");
+			for(int j = 0; j < pecas.length; j++) {
+				printPeca(pecas[i][j], possiveisMovimento[i][j]);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
 
-	private static void printPeca(PecaXadrez piece) {
-		if (piece == null) {
-			System.out.print("-");
+	private static void printPeca(PecaXadrez peca, boolean fundoPeca) {
+		if(fundoPeca) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
+		if (peca == null) {
+			System.out.print("-" + ANSI_RESET);
 		}
 		else {
-			if (piece.getCor() == Cor.WHITE) {
-				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+			if (peca.getCor() == Cor.WHITE) {
+				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
 			}
 			else {
-				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+				System.out.print(ANSI_YELLOW + peca + ANSI_RESET);
 			}
 		}
 		System.out.print(" ");
 	}
+
 }

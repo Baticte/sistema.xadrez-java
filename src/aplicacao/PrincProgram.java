@@ -22,6 +22,10 @@ public class PrincProgram {
 				System.out.println();
 				System.out.print("Origem: ");
 				PosicaoXadrez origem = UI.lerPosicaoPeca(input);
+				
+				boolean possiveisMovimento[][] = partidaXadrez.movimentosPossivel(origem);
+				UI.clearScreen();
+				UI.printTabuleiro(partidaXadrez.getPecas(), possiveisMovimento);
 
 				System.out.println();
 				System.out.print("Destino: ");
@@ -31,6 +35,7 @@ public class PrincProgram {
 			} catch (XadrezException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();
+				
 			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();
