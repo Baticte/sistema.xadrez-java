@@ -12,11 +12,6 @@ public class Torre extends PecaXadrez {
 	}
 
 	@Override
-	public String toString() {
-		return "R";
-	}
-
-	@Override
 	public boolean[][] movimentosPossiveis() {
 		boolean matriz[][] = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
 
@@ -60,5 +55,10 @@ public class Torre extends PecaXadrez {
 		}
 
 		return matriz;
+	}
+
+	@Override
+	public String toString() {
+		return "R";
 	}
 }
