@@ -18,7 +18,7 @@ public class PrincProgram {
 		while(true) {
 			try {
 				UI.clearScreen();
-				UI.printTabuleiro(partidaXadrez.getPecas());
+				UI.printPartida(partidaXadrez);
 				System.out.println();
 				System.out.print("Origem: ");
 				PosicaoXadrez origem = UI.lerPosicaoPeca(input);

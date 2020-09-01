@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.PosicaoXadrez;
 
@@ -33,7 +34,6 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-	// https://stackoverflow.com/questions/2979383/java-clear-the-console
 	public static void clearScreen() {  
 		try {
 			//Thread.sleep(1000); // Espera 1 segundo para ver a mágica acontecer
@@ -52,6 +52,13 @@ public class UI {
 		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro lendo a posição de xadrez, valores válidos são de a1 à h8");
 		}
+	}
+	
+	public static void printPartida(PartidaXadrez partidaXadrez) {
+		printTabuleiro(partidaXadrez.getPecas());
+		System.out.println();
+		System.out.println("Turno : " + partidaXadrez.getTurno());
+		System.out.println("Esperando o jogador: " + partidaXadrez.getJogadorAtual());
 	}
 
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
