@@ -92,7 +92,8 @@ public class PartidaXadrez {
 	}
 
 	private Peca fazMovimento(Posicao origem, Posicao destino) {
-		Peca p = tabuleiro.removePeca(origem);
+		PecaXadrez p = (PecaXadrez) tabuleiro.removePeca(origem);
+		p.incContMovimentos();
 		Peca pecaCapturada = tabuleiro.removePeca(destino);
 		tabuleiro.lugarPeca(p, destino);
 		
@@ -105,7 +106,8 @@ public class PartidaXadrez {
 	}
 	
 	private void desfazerMovimento(Posicao origem, Posicao destino, Peca pecaCapturada) {
-		Peca p = tabuleiro.removePeca(destino);
+		PecaXadrez p = (PecaXadrez) tabuleiro.removePeca(destino);
+		p.decContMovimentos();
 		tabuleiro.lugarPeca(p, origem);
 		
 		if(pecaCapturada != null) {
@@ -141,10 +143,6 @@ public class PartidaXadrez {
 		return (cor == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
 	}
 	
-	/**
-	 * @param cor
-	 * @return
-	 */
 	private PecaXadrez king(Cor cor) {
 		List<Peca> lista = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == cor).collect(Collectors.toList());
 		for (Peca peca : lista) {
