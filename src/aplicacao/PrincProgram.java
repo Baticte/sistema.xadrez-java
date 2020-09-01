@@ -18,7 +18,7 @@ public class PrincProgram {
 		PartidaXadrez partidaXadrez = new PartidaXadrez();
 		List<PecaXadrez> capturada = new ArrayList<>();
 
-		while(true) {
+		while(!partidaXadrez.isCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.printPartida(partidaXadrez, capturada);
@@ -49,6 +49,8 @@ public class PrincProgram {
 				input.nextLine();
 			}
 		}
+		UI.clearScreen();
+		UI.printPartida(partidaXadrez, capturada);
 	}
 
 }
