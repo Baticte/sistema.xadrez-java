@@ -35,6 +35,7 @@ public class PrincProgram {
 				PosicaoXadrez destino = UI.lerPosicaoPeca(input);
 
 				PecaXadrez pecaCapturada = partidaXadrez.executarMovimXadrez(origem, destino);
+				
 				if(pecaCapturada != null) {
 					capturada.add(pecaCapturada);
 				}

@@ -35,6 +35,10 @@ public class PartidaXadrez {
 	public Cor getJogadorAtual() {
 		return jogadorAtual;
 	}
+	
+	public boolean isCheck() {
+		return check;
+	}
 
 	public PecaXadrez[][] getPecas() {
 		PecaXadrez[][] matriz = new PecaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
@@ -59,6 +63,14 @@ public class PartidaXadrez {
 		validaPosicaoOrigem(origem);
 		validaPosicaoDestino(origem, destino);
 		Peca pecaCapturada = fazMovimento(origem, destino);
+		
+		if(testeCheck(jogadorAtual)) {
+			desfazerMovimento(origem, destino, pecaCapturada);
+			throw new XadrezException("Você não pode se colocar em xeque!");
+		}
+		
+		check = (testeCheck(jogadorOponente(jogadorAtual))) ? true : false;
+		
 		proximoTurno();
 		return (PecaXadrez) pecaCapturada;
 	}
@@ -115,18 +127,34 @@ public class PartidaXadrez {
 		jogadorAtual = (jogadorAtual == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
 	}
 	
-	private Cor corOponente(Cor cor) {
+	private Cor jogadorOponente(Cor cor) {
 		return (cor == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
 	}
 	
+	/**
+	 * @param cor
+	 * @return
+	 */
 	private PecaXadrez king(Cor cor) {
 		List<Peca> lista = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == cor).collect(Collectors.toList());
 		for (Peca peca : lista) {
 			if(peca instanceof Rei) {
-				return (PecaXadrez) peca;
+				return (PecaXadrez)peca;
 			}
 		}
 		throw new IllegalStateException("Não existe o rei de cor " + cor + " no tabuleiro.");
+	}
+	
+	private boolean testeCheck(Cor cor) {
+		Posicao posicaoRei = king(cor).getPosicaoXadrez().toPosicao();
+		List<Peca> pecasOponentes = pecasNoTabuleiro.stream().filter(x -> ((PecaXadrez) x).getCor() == jogadorOponente(cor)).collect(Collectors.toList());
+		for (Peca peca : pecasOponentes) {
+			boolean matriz[][] = peca.movimentosPossiveis();
+			if(matriz[posicaoRei.getLinha()][posicaoRei.getColuna()]) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void configInicial() {
@@ -142,6 +170,6 @@ public class PartidaXadrez {
 		lugarNovaPeca('d', 7, new Torre(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('e', 7, new Torre(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('e', 8, new Torre(tabuleiro, Cor.BLACK));
-		lugarNovaPeca('d', 8, new Torre(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('d', 8, new Rei(tabuleiro, Cor.BLACK));
 	}
 }
