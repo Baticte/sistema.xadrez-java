@@ -30,10 +30,6 @@ public class Rei extends PecaXadrez {
 		return p != null && p instanceof Torre && p.getCor() == getCor() && p.getContMovimentos() == 0;
 	}
 
-	public PartidaXadrez getPartidaXadrez() {
-		return partidaXadrez;
-	}
-
 	@Override
 	public boolean[][] movimentosPossiveis() {
 		boolean matriz[][] = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
