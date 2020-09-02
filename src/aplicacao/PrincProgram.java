@@ -40,6 +40,12 @@ public class PrincProgram {
 					capturada.add(pecaCapturada);
 				}
 				
+				if(partidaXadrez.getPromocao() != null) {
+					System.out.print("Digite a peca para promoção (B/N/R/Q): ");
+					String string = input.nextLine().toUpperCase();
+					partidaXadrez.substituirParaPecaPromocao(string);
+				}
+				
 			} catch (XadrezException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();

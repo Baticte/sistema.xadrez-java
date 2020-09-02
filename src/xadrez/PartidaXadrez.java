@@ -1,5 +1,6 @@
 package xadrez;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +22,7 @@ public class PartidaXadrez {
 	private boolean check;
 	private boolean checkMate;
 	private PecaXadrez enPassantVulneravel;
+	private PecaXadrez promovida;
 
 	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
 	private List<Peca> pecasCapturada = new ArrayList<>();
@@ -54,6 +56,10 @@ public class PartidaXadrez {
 		return enPassantVulneravel;
 	}
 
+	public PecaXadrez getPromocao() {
+		return promovida;
+	}
+
 	public PecaXadrez[][] getPecas() {
 		PecaXadrez[][] matriz = new PecaXadrez[tabuleiro.getLinhas()][tabuleiro.getColunas()];
 		for (int i = 0; i < tabuleiro.getLinhas(); i++) {
@@ -84,6 +90,15 @@ public class PartidaXadrez {
 		}
 
 		PecaXadrez pecaMovida = (PecaXadrez) tabuleiro.peca(destino);
+		
+		//SpecialMove promotion
+		promovida = null;
+		if(pecaMovida instanceof Peao) {
+			if(pecaMovida.getCor() == Cor.WHITE && destino.getLinha() == 0 || pecaMovida.getCor() == Cor.BLACK && destino.getLinha() == 7) {
+				promovida = (PecaXadrez) tabuleiro.peca(destino);
+				promovida = substituirParaPecaPromocao("Q");
+			}
+		}
 
 		check = (testeCheck(jogadorOponente(jogadorAtual))) ? true : false;
 
@@ -101,6 +116,38 @@ public class PartidaXadrez {
 		}
 
 		return (PecaXadrez) pecaCapturada;
+	}
+
+	public PecaXadrez substituirParaPecaPromocao(String string) {
+		if(promovida == null) {
+			throw new IllegalStateException("Não há peça para ser promovida.");
+		}
+		if(!string.equals("B") && !string.equals("N") && !string.equals("R") && !string.equals("Q")) {
+			throw new InvalidParameterException("Letra inválida para promoção!!!");
+		}
+		
+		Posicao pos = promovida.getPosicaoXadrez().toPosicao();
+		Peca p = tabuleiro.removePeca(pos);
+		pecasNoTabuleiro.remove(p);
+		
+		PecaXadrez novaPeca = novaPeca(string, promovida.getCor());
+		tabuleiro.lugarPeca(novaPeca, pos);
+		pecasNoTabuleiro.add(novaPeca);
+		
+		return novaPeca;
+	}
+	
+	/**
+	 * @param método auxiliar 
+	 * @param que vai retornar
+	 * @return uma peça de xadrez
+	 */
+	private PecaXadrez novaPeca(String string, Cor cor) {
+		if(string.equals("B")) return new Bispo(tabuleiro, cor);
+		if(string.equals("N")) return new Cavalo(tabuleiro, cor);
+		if(string.equals("Q")) return new Rainha(tabuleiro, cor);
+		return new Torre(tabuleiro, cor);
+		
 	}
 
 	private void validaPosicaoDestino(Posicao origem, Posicao destino) {
