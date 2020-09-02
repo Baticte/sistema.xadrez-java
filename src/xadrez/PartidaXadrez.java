@@ -200,7 +200,7 @@ public class PartidaXadrez {
 		lugarNovaPeca('g', 1, new Cavalo(tabuleiro, Cor.WHITE));
 		lugarNovaPeca('c', 1, new Bispo(tabuleiro, Cor.WHITE));
 		lugarNovaPeca('f', 1, new Bispo(tabuleiro, Cor.WHITE));
-		lugarNovaPeca('e', 1, new Rei(tabuleiro, Cor.WHITE));
+		lugarNovaPeca('e', 1, new Rei(tabuleiro, Cor.WHITE, this));
 		lugarNovaPeca('d', 1, new Rainha(tabuleiro, Cor.WHITE));
 		lugarNovaPeca('a', 2, new Peao(tabuleiro, Cor.WHITE));
 		lugarNovaPeca('b', 2, new Peao(tabuleiro, Cor.WHITE));
@@ -217,7 +217,7 @@ public class PartidaXadrez {
 		lugarNovaPeca('g', 8, new Cavalo(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('c', 8, new Bispo(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('f', 8, new Bispo(tabuleiro, Cor.BLACK));
-		lugarNovaPeca('e', 8, new Rei(tabuleiro, Cor.BLACK));
+		lugarNovaPeca('e', 8, new Rei(tabuleiro, Cor.BLACK, this));
 		lugarNovaPeca('d', 8, new Rainha(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('a', 7, new Peao(tabuleiro, Cor.BLACK));
 		lugarNovaPeca('b', 7, new Peao(tabuleiro, Cor.BLACK));
